@@ -211,7 +211,8 @@ def cmd_quebrar(args):
 
     print("Índice de Coincidência por tamanho de chave")
     print(f"(português ~ {IC_PORTUGUES:.4f}, aleatório ~ {IC_ALEATORIO:.4f})\n")
-    maior = max(r["ics"].values())
+    # texto curto demais pode dar IC 0 em todos os tamanhos; evita dividir por zero
+    maior = max(r["ics"].values()) or 1
     for k, ic in r["ics"].items():
         barra = "#" * round(40 * ic / maior)
         marca = "  <<" if k == r["tamanho"] else ""
